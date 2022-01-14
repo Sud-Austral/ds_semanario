@@ -23,10 +23,86 @@ aet
 
 ```{r}
 aet_sub <- aet[,c(252:258)]
-
 aet_sub
 ```
 
+2 def
+
+```{r}
+def <- read.csv("C:/Users/chris/Desktop/GitHub/ds_semanario/variables_terraclimate_a_utilizar/TERRACLIMATE_MEDIA_def.csv")
+writexl::write_xlsx(def, "def_semanario.xlsx")
+def
+```
+
+```{r}
+def_sub <- def[,c(252:258)]
+def_sub
+```
+
+3 pdsi
+
+```{r}
+pdsi <- read.csv("C:/Users/chris/Desktop/GitHub/ds_semanario/variables_terraclimate_a_utilizar/TERRACLIMATE_MEDIA_pdsi.csv")
+writexl::write_xlsx(pdsi, "pdsi_semanario.xlsx")
+pdsi
+```
+
+```{r}
+pdsi_sub <- pdsi[,c(252:258)]
+pdsi_sub
+```
+
+4 pr
+
+```{r}
+pr <- read.csv("C:/Users/chris/Desktop/GitHub/ds_semanario/variables_terraclimate_a_utilizar/TERRACLIMATE_MEDIA_pr.csv")
+writexl::write_xlsx(pr, "pr_semanario.xlsx")
+pr
+```
+
+```{r}
+pr_sub <- pr[,c(252:258)]
+pr_sub
+```
+
+5 soil
+
+```{r}
+soil <- read.csv("C:/Users/chris/Desktop/GitHub/ds_semanario/variables_terraclimate_a_utilizar/TERRACLIMATE_MEDIA_soil.csv")
+writexl::write_xlsx(soil, "soil_semanario.xlsx")
+soil
+```
+
+```{r}
+soil_sub <- soil[,c(252:258)]
+soil_sub
+```
+
+6 tmmn
+
+```{r}
+tmmn <- read.csv("C:/Users/chris/Desktop/GitHub/ds_semanario/variables_terraclimate_a_utilizar/TERRACLIMATE_MEDIA_tmmn.csv")
+writexl::write_xlsx(tmmn, "tmmn_semanario.xlsx")
+tmmn
+```
+
+```{r}
+tmmn_sub <- tmmn[,c(252:258)]
+tmmn_sub
+```
+
+7 tmmx
+
+```{r}
+tmmx <- read.csv("C:/Users/chris/Desktop/GitHub/ds_semanario/variables_terraclimate_a_utilizar/TERRACLIMATE_MEDIA_tmmx.csv")
+writexl::write_xlsx(tmmx, "tmmx_semanario.xlsx")
+tmmx
+```
+
+```{r}
+tmmx_sub <- tmmx[,c(252:258)]
+tmmx_sub
+```
 
 
 
