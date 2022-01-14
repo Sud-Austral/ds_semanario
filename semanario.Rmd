@@ -1,0 +1,39 @@
+---
+title: "semanario"
+author: "vecc"
+date: "13-01-2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R 
+
+ID_AP_Data y CODE_AP
+
+1 aet
+
+```{r}
+aet <- read.csv("C:/Users/chris/Desktop/GitHub/ds_semanario/variables_terraclimate_a_utilizar/TERRACLIMATE_MEDIA_aet.csv")
+writexl::write_xlsx(aet, "aet_semanario.xlsx")
+aet
+```
+
+```{r}
+aet_sub <- aet[,c(252:258)]
+
+aet_sub
+```
+
+
+
+
+
+
+
+
+
+
+

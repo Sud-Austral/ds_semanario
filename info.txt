@@ -1,0 +1,6 @@
+
+ésta información alimenta a los semanarios, son tablas que contienen 120 registros de las areas protegidas 
+sobre las que imputamos los datos y sacamos los prefijos X en las cabeceras como primera mejora.
+
+Hay un problem con el ID de la tablas suministradas. Ver imagen ID_AP_Data_y_CODE_AP del repositorio
+ds_semanario.
