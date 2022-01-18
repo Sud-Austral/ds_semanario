@@ -1,0 +1,138 @@
+---
+title: "Untitled"
+author: "VE"
+date: "18/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggpubr)
+library(markdown)
+library(shiny)
+library(shinythemes)
+library(tidyverse)
+library(magrittr)
+library(lubridate)
+library(plotly)
+library(xts)
+library(dygraphs)
+library(kableExtra)
+library(knitr)
+library("readxl")
+library(rsconnect)
+library(dplyr)
+library(summarytools)
+library(epiDisplay)
+#library(leaflet)
+library(haven)
+library(epiDisplay)
+library("readxl")
+library(expss)
+library(hrbrthemes)
+library(viridis)
+library(viridisLite)
+library(DescTools)
+library(roperators)
+library(shinycssloaders)
+library(writexl)
+library(labelled)
+library(tidyverse)
+library(haven)
+library(readr)
+library(sjmisc)
+
+library(ineq)
+library(readstata13)
+library(reldist)
+library(DT)
+library(demography)
+```
+
+```{r}
+# dir()
+```
+
+6 Usted habita un territorio urbano o rural_etnia 6
+
+```{r}
+ocu <- readxl::read_xlsx("Usted habita un territorio urbano o rural_etnia_1.xlsx")
+ocu$cod_comuna <- as.numeric(ocu$cod_comuna)
+ocu$Año <- as.numeric(ocu$Año)
+ocu
+```
+
+
+```{r}
+ocu1 <- filter(ocu, Año == "2017")
+ocu1
+```
+
+se van Cadena, etnia, y se renombra CUT_COM
+
+Rural	1
+Urbano	2
+
+
+```{r}
+names(ocu1)[8] <- "CUT_COM"
+ocu2 <- ocu1[,-c(9,10)]
+ocu2
+```
+
+
+```{r}
+# write_xlsx(unique(ocu[,c("Etnia","cod_etnia")]),"codigos_etnia.xlsx")
+```
+
+Áreas protegidas
+
+El primer unique elimina los datos erroneamente repetidos que nos entreeg[o Efrain
+
+```{r}
+ap <- read_xlsx("Tabla_AP_mas_Comunas_Semanario.xlsx") 
+ap <- unique(ap)#<<<---------------------------------------------  Se mantienen los datos únicos
+ap <- ap[,c(1:12)]
+ap
+```
+
+se sacan las comunas que cuentan con areas protegidas y caben en dos categorias:
+
+El segundo unique muchas comunas integran un area protegida
+
+```{r} 
+codigos_comuna <- unique(ap$CUT_COM)
+codigos_comuna
+```
+
+
+```{r} 
+resultados <- tibble()
+for(i in codigos_comuna){
+  filtro <- filter(ocu2, CUT_COM == i)
+  resultados <- rbind(resultados,filtro)
+}
+resultados
+```
+
+```{r}
+ttcc_con_ap <- merge(ap,resultados,by="CUT_COM")
+ttcc_con_ap
+```
+```{r}
+write_xlsx(ttcc_con_ap,"ap_ruralidad_6.xlsx")
+saveRDS(ttcc_con_ap,"ap_ruralidad_6.rds")
+```
+
+```{r}
+# f1 <- filter(ttcc_con_ap,ID_AP_Data==99)
+# # f1 <- filter(f1,Etnia=="Mapuche")
+# # f1 <- filter(f1,Sexo=="Hombre")
+# # f1 <- filter(f1,`Sabe leer?`=="Sí")
+# # f1 <- filter(f1,variable=="Sí")
+# unique(f1)
+```
+
+ 
+
