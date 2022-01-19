@@ -1,0 +1,105 @@
+
+
+```{r , message=FALSE, warning=FALSE, include = FALSE, eecho = FALSE}
+# suppressWarnings(library(RODBC))
+library(ggplot2)
+library(ggpubr)
+library(markdown)
+library(shiny)
+library(shinythemes)
+library(tidyverse)
+library(magrittr)
+library(lubridate)
+library(plotly)
+library(xts)
+library(dygraphs)
+library(kableExtra)
+library(knitr)
+library("readxl")
+library(rsconnect)
+library(dplyr)
+library(summarytools)
+library(epiDisplay)
+#library(leaflet)
+library(haven)
+library(epiDisplay)
+library("readxl")
+library(expss)
+library(hrbrthemes)
+library(viridis)
+library(viridisLite)
+library(DescTools)
+library(roperators)
+library(shinycssloaders)
+library(writexl)
+library(labelled)
+library(tidyverse)
+library(haven)
+library(readr)
+library(sjmisc)
+library(WriteXLS)
+library(ineq)
+library(readstata13)
+library(reldist)
+library(DT)
+```
+
+```{r}
+##############
+#1
+pdsi_semanario <- readxl::read_xlsx("C:/Users/chris/Desktop/GitHub/ds_semanario/xlsx_variables_areas_protegidas_a_imputar/pdsi_semanario.xlsx")
+pdsi_semanario
+```
+
+
+```{r}
+filter(pdsi_semanario, pdsi_semanario$X201802_pdsi == 0)
+```
+
+
+
+
+
+```{r}
+nas <- pdsi_semanario
+los_codigos_subsubcuencales <- nas[,c(256)]
+
+nas <- nas[,c(1:252)]
+
+for (i in 1:252) {
+  nas[,i][nas[,i] == 0] <- NA
+}
+
+nas <- as.data.frame(nas)
+
+tabla_nas <- nas
+
+library(mice)
+
+imputed_Data <- mice(tabla_nas, m = 3, maxit = 3, method = 'pmm', seed = 500)
+
+completeData <- complete(imputed_Data,3)
+
+TERRACLIMATE_MEDIA_sub_sub_cuenca_pdsi_imp = cbind(completeData, los_codigos_subsubcuencales)
+```
+
+
+```{r}
+writexl::write_xlsx(TERRACLIMATE_MEDIA_sub_sub_cuenca_pdsi_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_pdsi_imp.xlsx")
+
+saveRDS(TERRACLIMATE_MEDIA_sub_sub_cuenca_pdsi_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_pdsi_imp.rds")
+```
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
