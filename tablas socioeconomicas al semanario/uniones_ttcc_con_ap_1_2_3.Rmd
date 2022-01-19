@@ -1,0 +1,166 @@
+---
+title: "Untitled"
+author: "VE"
+date: "18/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+dir()
+```
+
+ttcc ocupación
+
+```{r}
+ocu <- read_xlsx("La semana pasada, ¿trabajó al menos una hora, sin considerar los quehaceres del hogar_etnia_9.xlsx")
+ocu$cod_comuna <- as.numeric(ocu$cod_comuna)
+ocu <- filter(ocu, Año == "2020")
+names(ocu)[8] <- "CUT_COM"
+ocu <- ocu[,-c(9,10)]
+ocu
+```
+
+Áreas protegidas
+
+```{r}
+ap <- read_xlsx("Tabla_AP_mas_Comunas_Semanario.xlsx") 
+ap <- unique(ap)#<<<---------------------------------------------  Se mantienen los datos únicos
+ap <- ap[,c(1:12)]
+ap
+```
+
+
+```{r} 
+codigos_comuna <- (unique(ap$CUT_COM))
+
+resultados <- tibble()
+for(i in codigos_comuna){
+  filtro <- filter(ocu, CUT_COM == i)
+  resultados <- rbind(resultados,filtro)
+}
+
+ttcc_con_ap <- merge(ap,resultados,by="CUT_COM")
+ttcc_con_ap <- unique(ttcc_con_ap)
+ttcc_con_ap
+```
+```{r}
+write_xlsx(ttcc_con_ap,"ap_trabajo_1_hora_la_semana_pasada.xlsx")
+saveRDS(ttcc_con_ap,"ap_trabajo_1_hora_la_semana_pasada.rds")
+```
+
+```{r}
+f1 <- filter(ttcc_con_ap,ID_AP_Data==98) 
+unique(f1)
+```
+ 
+```{r}
+ocu <- read_xlsx("Sabe leer y escribir_etnia_4.xlsx")
+ocu$cod_comuna <- as.numeric(ocu$cod_comuna)
+ocu <- filter(ocu, Año == "2017")
+names(ocu)[7] <- "CUT_COM"
+ocu <- ocu[,-c(8)]
+ocu
+```
+
+Áreas protegidas
+
+```{r}
+ap <- read_xlsx("Tabla_AP_mas_Comunas_Semanario.xlsx") 
+ap <- unique(ap)#<<<---------------------------------------------  Se mantienen los datos únicos
+ap <- ap[,c(1:12)]
+ap
+```
+
+
+```{r} 
+codigos_comuna <- (unique(ap$CUT_COM))
+
+resultados <- tibble()
+for(i in codigos_comuna){
+  filtro <- filter(ocu, CUT_COM == i)
+  resultados <- rbind(resultados,filtro)
+}
+
+ttcc_con_ap <- merge(ap,resultados,by="CUT_COM")
+ttcc_con_ap <- unique(ttcc_con_ap)
+ttcc_con_ap
+```
+```{r}
+write_xlsx(ttcc_con_ap,"ttcc_Sabe leer y escribir.xlsx")
+saveRDS(ttcc_con_ap,"ttcc_Sabe leer y escribir.rds")
+```
+
+```{r}
+f1 <- filter(ttcc_con_ap,ID_AP_Data==25)
+f1 <- filter(f1,Etnia=="No pertenece a ningún pueblo indígena")
+f1 <- filter(f1,Sexo=="Hombre")
+f1 <- filter(f1,`Sabe leer?`=="Sí")
+f1 <- filter(f1,variable=="Sí")
+unique(f1)
+# f1
+```
+
+
+
+
+```{r}
+ocu <- read_xlsx("porcentaje_pobreza_interpolada.xlsx")
+colnames(ocu) <- ocu[1,];ocu <- ocu[-1,c(2,13)]
+ocu$pob_2020 <- as.numeric(ocu$pob_2020)
+ocu$codigo <- as.numeric(ocu$codigo) 
+names(ocu)[1] <- "CUT_COM" 
+names(ocu)[2] <- "Pobreza 2020" 
+ocu
+```
+
+Áreas protegidas
+
+```{r}
+ap <- read_xlsx("Tabla_AP_mas_Comunas_Semanario.xlsx") 
+ap <- unique(ap)#<<<---------------------------------------------  Se mantienen los datos únicos
+ap <- ap[,c(1:12)]
+ap
+```
+
+
+```{r} 
+codigos_comuna <- (unique(ap$CUT_COM))
+
+resultados <- tibble()
+for(i in codigos_comuna){
+  filtro <- filter(ocu, CUT_COM == i)
+  resultados <- rbind(resultados,filtro)
+}
+
+ttcc_con_ap <- merge(ap,resultados,by="CUT_COM")
+ttcc_con_ap <- unique(ttcc_con_ap)
+ttcc_con_ap
+```
+```{r}
+write_xlsx(ttcc_con_ap,"ttcc_Porcentaje de pobreza.xlsx")
+saveRDS(ttcc_con_ap,"ttcc_Porcentaje de pobreza.rds")
+```
+
+```{r}
+f1 <- filter(ttcc_con_ap,ID_AP_Data==25)
+f1 <- filter(f1,`Pobreza 2020`=="No pertenece a ningún pueblo indígena")
+ 
+f1
+```
+
+
+
+
+
+
+
+
+
+
+
+ 
