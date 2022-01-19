@@ -46,7 +46,7 @@ library(demography)
 Pertenece a algun pueblo indigena? cual?
 
 ```{r}
-ocu <- read_xlsx("Pueblos_indigenas.xlsx")
+ocu <- read_xlsx("Pueblos indígenas, pertenece usted o es descendiente de alguno de ellos_etnia_27.xlsx")
 ocu
 ```
 
