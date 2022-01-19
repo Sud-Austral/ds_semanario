@@ -1,6 +1,3 @@
-
-"ap_esperanza_de_vida"
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
@@ -49,29 +46,31 @@ library(demography)
 Pertenece a algun pueblo indigena? cual?
 
 ```{r}
-ocu <- read_xlsx("esperanza_de_vida.xlsx")
+ocu <- read_xlsx("Pueblos_indigenas.xlsx")
 ocu
 ```
 
-```{r}
-ocu1 <- filter(ocu, ocu$año == 2017)
-ocu1
-```
 
 
 
 ```{r}
-ocu1$cod_com <- as.numeric(ocu1$cod_com)
-ocu1
+ocu$cod_comuna <- as.numeric(ocu$cod_comuna)
+ocu$Año <- as.numeric(ocu$Año)
+ocu
 ```
 
 
+```{r}
+ocu <- filter(ocu, Año == "2020")
+ocu
+```
 
 se van Cadena, etnia, y se renombra CUT_COM
 
 ```{r}
-names(ocu1)[1] <- "CUT_COM"
-ocu1
+names(ocu)[8] <- "CUT_COM"
+ocu <- ocu[,-c(9,10)]
+ocu
 ```
 ```{r}
 # unique(ocu[,c("Etnia","cod_etnia")])
@@ -97,12 +96,10 @@ codigos_comuna
 ```
 
 
-El siguiente codigo elimina las AP repetidas:
-
 ```{r} 
 resultados <- tibble()
 for(i in codigos_comuna){
-  filtro <- filter(ocu1, CUT_COM == i)
+  filtro <- filter(ocu, CUT_COM == i)
   resultados <- rbind(resultados,filtro)
 }
 resultados
@@ -110,11 +107,12 @@ resultados
 
 ```{r}
 ttcc_con_ap <- merge(ap,resultados,by="CUT_COM")
+ttcc_con_ap <- unique(ttcc_con_ap)
 ttcc_con_ap
 ```
 ```{r}
-write_xlsx(ttcc_con_ap,"ap_esperanza_de_vida_5.xlsx")
-saveRDS(ttcc_con_ap,"ap_esperanza_de_vida_5.rds")
+write_xlsx(ttcc_con_ap,"ap_pertenencia_a_pueblo_indigena_4.xlsx")
+saveRDS(ttcc_con_ap,"ap_pertenencia_a_pueblo_indigena_4.rds")
 ```
 
 ```{r}
@@ -125,3 +123,19 @@ saveRDS(ttcc_con_ap,"ap_esperanza_de_vida_5.rds")
 # # f1 <- filter(f1,variable=="Sí")
 # unique(f1)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

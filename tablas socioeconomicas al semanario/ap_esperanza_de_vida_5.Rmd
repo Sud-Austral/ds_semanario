@@ -1,9 +1,5 @@
----
-title: "Untitled"
-author: "VE"
-date: "18/1/2022"
-output: html_document
----
+
+"ap_esperanza_de_vida"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -50,45 +46,42 @@ library(DT)
 library(demography)
 ```
 
-```{r}
-# dir()
-```
-
-6 Usted habita un territorio urbano o rural_etnia 6
+Pertenece a algun pueblo indigena? cual?
 
 ```{r}
-ocu <- readxl::read_xlsx("Usted habita un territorio urbano o rural_etnia_1.xlsx")
-ocu$cod_comuna <- as.numeric(ocu$cod_comuna)
-ocu$Año <- as.numeric(ocu$Año)
+ocu <- read_xlsx("esperanza_de_vida.xlsx")
 ocu
 ```
 
-
 ```{r}
-ocu1 <- filter(ocu, Año == "2017")
+ocu1 <- filter(ocu, ocu$año == 2017)
 ocu1
 ```
 
-se van Cadena, etnia, y se renombra CUT_COM
-
-Rural	1
-Urbano	2
 
 
 ```{r}
-names(ocu1)[8] <- "CUT_COM"
-ocu2 <- ocu1[,-c(9,10)]
-ocu2
+ocu1$cod_com <- as.numeric(ocu1$cod_com)
+ocu1
 ```
 
+
+
+se van Cadena, etnia, y se renombra CUT_COM
+
+```{r}
+names(ocu1)[1] <- "CUT_COM"
+ocu1
+```
+```{r}
+# unique(ocu[,c("Etnia","cod_etnia")])
+```
 
 ```{r}
 # write_xlsx(unique(ocu[,c("Etnia","cod_etnia")]),"codigos_etnia.xlsx")
 ```
 
 Áreas protegidas
-
-El primer unique elimina los datos erroneamente repetidos que nos entreeg[o Efrain
 
 ```{r}
 ap <- read_xlsx("Tabla_AP_mas_Comunas_Semanario.xlsx") 
@@ -97,9 +90,6 @@ ap <- ap[,c(1:12)]
 ap
 ```
 
-se sacan las comunas que cuentan con areas protegidas y caben en dos categorias:
-
-El segundo unique muchas comunas integran un area protegida
 
 ```{r} 
 codigos_comuna <- unique(ap$CUT_COM)
@@ -107,10 +97,12 @@ codigos_comuna
 ```
 
 
+El siguiente codigo elimina las AP repetidas:
+
 ```{r} 
 resultados <- tibble()
 for(i in codigos_comuna){
-  filtro <- filter(ocu2, CUT_COM == i)
+  filtro <- filter(ocu1, CUT_COM == i)
   resultados <- rbind(resultados,filtro)
 }
 resultados
@@ -118,11 +110,12 @@ resultados
 
 ```{r}
 ttcc_con_ap <- merge(ap,resultados,by="CUT_COM")
+ttcc_con_ap <- unique(ttcc_con_ap)
 ttcc_con_ap
 ```
 ```{r}
-write_xlsx(ttcc_con_ap,"ap_ruralidad_6.xlsx")
-saveRDS(ttcc_con_ap,"ap_ruralidad_6.rds")
+write_xlsx(ttcc_con_ap,"ap_esperanza_de_vida_5.xlsx")
+saveRDS(ttcc_con_ap,"ap_esperanza_de_vida_5.rds")
 ```
 
 ```{r}
@@ -133,6 +126,3 @@ saveRDS(ttcc_con_ap,"ap_ruralidad_6.rds")
 # # f1 <- filter(f1,variable=="Sí")
 # unique(f1)
 ```
-
- 
-
