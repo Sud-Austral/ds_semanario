@@ -69,7 +69,6 @@ se van Cadena, etnia, y se renombra CUT_COM
 
 ```{r}
 names(ocu)[8] <- "CUT_COM"
-ocu <- ocu[,-c(9,10)]
 ocu
 ```
 ```{r}

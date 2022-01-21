@@ -1,0 +1,238 @@
+---
+title: "factor_de_correccion"
+author: "vecc"
+date: "20-01-2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R
+
+aet
+
+```{r}
+aet <- readxl::read_xlsx("TERRACLIMATE_MEDIA_sub_sub_cuenca_aet_imp.xlsx")
+aet
+```
+
+```{r}
+for (i in 1:252){
+    aet[,i] <- (aet[,i]*.1)
+}
+```
+
+```{r}
+aet_ponderado <- aet
+aet_ponderado 
+```
+
+
+```{r}
+aet_ponderado  <- aet_ponderado[,c(253,1:252)]
+aet_ponderado 
+```
+
+```{r}
+writexl::write_xlsx(aet_ponderado, "aet_ponderado.xlsx")
+```
+
+
+
+
+def
+
+```{r}
+def <- readxl::read_xlsx("TERRACLIMATE_MEDIA_sub_sub_cuenca_def_imp.xlsx")
+def
+```
+
+```{r}
+for (i in 1:252){
+    def[,i] <- (def[,i]*.1)
+}
+```
+
+```{r}
+def_ponderado <- def
+def_ponderado 
+```
+
+
+```{r}
+def_ponderado  <- def_ponderado[,c(253,1:252)]
+def_ponderado 
+```
+
+
+
+
+```{r}
+writexl::write_xlsx(def_ponderado, "def_ponderado.xlsx")
+```
+
+
+
+pdsi
+
+```{r}
+pdsi <- readxl::read_xlsx("TERRACLIMATE_MEDIA_sub_sub_cuenca_pdsi_imp.xlsx")
+pdsi
+```
+
+```{r}
+for (i in 1:252){
+    pdsi[,i] <- (pdsi[,i]*.01)
+}
+```
+
+```{r}
+pdsi_ponderado <- pdsi
+pdsi_ponderado 
+```
+
+```{r}
+pdsi_ponderado  <- pdsi_ponderado[,c(253,1:252)]
+pdsi_ponderado 
+```
+
+
+```{r}
+writexl::write_xlsx(pdsi_ponderado, "pdsi_ponderado.xlsx")
+```
+
+
+
+pr
+
+```{r}
+pr <- readxl::read_xlsx("TERRACLIMATE_MEDIA_sub_sub_cuenca_pr_imp.xlsx")
+pr
+```
+
+```{r}
+for (i in 1:252){
+    pr[,i] <- (pr[,i])
+}
+```
+
+```{r}
+pr_ponderado <- pr
+pr_ponderado 
+```
+
+```{r}
+pr_ponderado  <- pr_ponderado[,c(253,1:252)]
+pr_ponderado 
+```
+
+
+
+
+```{r}
+writexl::write_xlsx(pr_ponderado, "pr_ponderado.xlsx")
+```
+
+
+
+
+soil
+
+```{r}
+soil <- readxl::read_xlsx("TERRACLIMATE_MEDIA_sub_sub_cuenca_soil_imp.xlsx")
+soil
+```
+
+```{r}
+for (i in 2:253){
+    soil[,i] <- (soil[,i]*.1)
+}
+```
+
+```{r}
+soil_ponderado <- soil
+soil_ponderado 
+```
+
+
+
+
+
+
+```{r}
+writexl::write_xlsx(soil_ponderado, "soil_ponderado.xlsx")
+```
+
+
+
+tmmn
+
+```{r}
+tmmn <- readxl::read_xlsx("TERRACLIMATE_MEDIA_sub_sub_cuenca_tmmn_imp.xlsx")
+tmmn
+```
+
+```{r}
+for (i in 1:252){
+    tmmn[,i] <- (tmmn[,i]*.1)
+}
+```
+
+```{r}
+tmmn_ponderado <- tmmn
+tmmn_ponderado 
+```
+
+
+```{r}
+tmmn_ponderado  <- tmmn_ponderado[,c(253,1:252)]
+tmmn_ponderado 
+```
+
+
+
+
+```{r}
+writexl::write_xlsx(tmmn_ponderado, "tmmn_ponderado.xlsx")
+```
+
+
+
+tmmx
+
+```{r}
+tmmx <- readxl::read_xlsx("TERRACLIMATE_MEDIA_sub_sub_cuenca_tmmx_imp.xlsx")
+tmmx
+```
+
+```{r}
+for (i in 1:252){
+    tmmx[,i] <- (tmmx[,i]*.1)
+}
+```
+
+```{r}
+tmmx_ponderado <- tmmx
+tmmx_ponderado 
+```
+
+```{r}
+tmmx_ponderado  <- tmmx_ponderado[,c(253,1:252)]
+tmmx_ponderado 
+```
+
+
+
+
+```{r}
+writexl::write_xlsx(tmmx_ponderado, "tmmx_ponderado.xlsx")
+```
+
+
+
+
+
+
+

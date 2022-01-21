@@ -77,8 +77,7 @@ Urbano	2
 
 ```{r}
 names(ocu1)[8] <- "CUT_COM"
-ocu2 <- ocu1[,-c(9,10)]
-ocu2
+ocu1
 ```
 
 
@@ -110,7 +109,7 @@ codigos_comuna
 ```{r} 
 resultados <- tibble()
 for(i in codigos_comuna){
-  filtro <- filter(ocu2, CUT_COM == i)
+  filtro <- filter(ocu1, CUT_COM == i)
   resultados <- rbind(resultados,filtro)
 }
 resultados

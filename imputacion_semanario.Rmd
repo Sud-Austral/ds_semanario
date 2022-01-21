@@ -45,15 +45,29 @@ library(DT)
 ```
 
 ```{r}
-##############
-#1
-tmmx_semanario <- readxl::read_xlsx("C:/Users/chris/Desktop/GitHub/ds_semanario/xlsx_variables_areas_protegidas_a_imputar/tmmx_semanario.xlsx")
-tmmx_semanario
+# aet
+aet_imp <- readxl::read_xlsx("C:/Users/chris/Desktop/GitHub/ds_semanario/xlsx_variables_areas_protegidas_a_imputar/aet_semanario_en_construccion.xlsx")
+aet_imp
+```
+
+```{r}
+# pr
+pr_imp <- readxl::read_xlsx("C:/Users/chris/Desktop/GitHub/ds_semanario/xlsx_variables_areas_protegidas_a_imputar/pr_semanario_en_construccion.xlsx")
+pr_imp 
+```
+
+```{r}
+# soil
+soil_imp <- readxl::read_xlsx("C:/Users/chris/Desktop/GitHub/ds_semanario/xlsx_variables_areas_protegidas_a_imputar/soil_semanario_en_construccion.xlsx")
+soil_imp
 ```
 
 
+
+
+
 ```{r}
-filter(pdsi_semanario, pdsi_semanario$X201802_pdsi == 0)
+# filter(pdsi_semanario, pdsi_semanario$X201802_pdsi == 0)
 ```
 
 
@@ -61,7 +75,7 @@ filter(pdsi_semanario, pdsi_semanario$X201802_pdsi == 0)
 
 
 ```{r}
-nas <- tmmx_semanario
+nas <- aet_imp
 los_codigos_subsubcuencales <- nas[,c(256)]
 
 nas <- nas[,c(1:252)]
@@ -80,14 +94,77 @@ imputed_Data <- mice(tabla_nas, m = 3, maxit = 3, method = 'pmm', seed = 500)
 
 completeData <- complete(imputed_Data,3)
 
-TERRACLIMATE_MEDIA_sub_sub_cuenca_tmmx_imp = cbind(completeData, los_codigos_subsubcuencales)
+TERRACLIMATE_MEDIA_sub_sub_cuenca_aet_imp = cbind(completeData, los_codigos_subsubcuencales)
+
+writexl::write_xlsx(TERRACLIMATE_MEDIA_sub_sub_cuenca_aet_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_aet_imp.xlsx")
 ```
 
 
 ```{r}
-writexl::write_xlsx(TERRACLIMATE_MEDIA_sub_sub_cuenca_tmmx_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_tmmx_imp.xlsx")
+saveRDS(TERRACLIMATE_MEDIA_sub_sub_cuenca_aet_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_aet_imp.rds")
+```
 
-saveRDS(TERRACLIMATE_MEDIA_sub_sub_cuenca_tmmx_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_tmmx_imp.rds")
+
+```{r}
+##########################
+
+nas <- pr_imp
+los_codigos_subsubcuencales <- nas[,c(256)]
+
+nas <- nas[,c(1:252)]
+
+for (i in 1:252) {
+  nas[,i][nas[,i] == 0] <- NA
+}
+
+nas <- as.data.frame(nas)
+
+tabla_nas <- nas
+
+library(mice)
+
+imputed_Data <- mice(tabla_nas, m = 3, maxit = 3, method = 'cart', seed = 500)
+
+completeData <- complete(imputed_Data,3)
+
+TERRACLIMATE_MEDIA_sub_sub_cuenca_pr_imp = cbind(completeData, los_codigos_subsubcuencales)
+
+writexl::write_xlsx(TERRACLIMATE_MEDIA_sub_sub_cuenca_pr_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_pr_imp.xlsx")
+
+saveRDS(TERRACLIMATE_MEDIA_sub_sub_cuenca_pr_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_pr_imp.rds")
+```
+
+
+```{r}
+##########################
+
+nas <- soil_imp
+los_codigos_subsubcuencales <- nas[,c(256)]
+
+nas <- nas[,c(1:252)]
+
+for (i in 1:252) {
+  nas[,i][nas[,i] == 0] <- NA
+}
+
+nas <- as.data.frame(nas)
+
+tabla_nas <- nas
+
+library(mice)
+
+imputed_Data <- mice(tabla_nas, m = 3, maxit = 3, method = 'pmm', seed = 500)
+
+completeData <- complete(imputed_Data,3)
+
+TERRACLIMATE_MEDIA_sub_sub_cuenca_soil_imp = cbind(completeData, los_codigos_subsubcuencales)
+
+writexl::write_xlsx(TERRACLIMATE_MEDIA_sub_sub_cuenca_soil_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_soil_imp.xlsx")
+
+saveRDS(TERRACLIMATE_MEDIA_sub_sub_cuenca_soil_imp,"TERRACLIMATE_MEDIA_sub_sub_cuenca_soil_imp.rds")
+
+
+
 ```
 
 
